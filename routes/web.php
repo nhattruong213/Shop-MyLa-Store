@@ -1,0 +1,52 @@
+<?php
+
+use App\Http\Controllers\Front\BlogController;
+use App\Http\Controllers\Front\CartController;
+use App\Http\Controllers\Front\ContactController;
+use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\ShopController;
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/',[HomeController::class, 'index'])->name('homepage');
+
+
+// route for shop 
+Route::prefix('shop')->group(function(){
+
+    Route::get('/product/{id}',[ShopController::class, 'show'])->name('productDetail');
+    Route::post('/product/{id}',[ShopController::class, 'postComment'])->name('postComment');
+    Route::get('/',[ShopController::class, 'index'])->name('shop');
+    Route::get('/{id}',[ShopController::class, 'category'])->name('shop.category');
+
+});
+
+//route for contact
+Route::get('/contact',[ContactController::class, 'index'])->name('contact');
+
+//route for blog
+Route::prefix('blog')->group(function(){
+    Route::get('/',[BlogController::class, 'index'])->name('blog');
+    Route::get('/blogDetail/{id}',[BlogController::class, 'show'])->name('blogDetail');
+});
+
+//route for cart
+Route::prefix('Cart')->group(function(){
+    Route::get('/AddCart/{id}',[CartController::class, 'AddCart'])->name('AddCart');
+    Route::post('/AddCart/Product/{id}',[CartController::class, 'AddCart'])->name('AddCart-Many');
+    Route::get('/',[CartController::class, 'index'])->name('cart');
+    Route::get('/DeleteItemCart/{id}',[CartController::class, 'DeleteItemCart'])->name('DeleteItemCart');
+    Route::get('/DeleteListCart/{id}',[CartController::class, 'DeleteListCart'])->name('DeleteListCart');
+    Route::get('/DeleteAllCart',[CartController::class, 'DeleteAllCart'])->name('DeleteAllCart');
+    Route::post('/UpdateItemCart/{id}',[CartController::class, 'UpdateItemCart'])->name('UpdateItemCart');
+});
