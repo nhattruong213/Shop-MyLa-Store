@@ -137,7 +137,7 @@
                                     </div>
                                     <div class="select-button">
                                         <a href="{{ route('cart') }}" class="primary-btn view-card">Xem giỏ hàng</a>
-                                        <a href="check-out.html" class="primary-btn checkout-btn">Thanh toán</a>
+                                        <a href="{{ route('CheckOut') }}" class="primary-btn checkout-btn">Thanh toán</a>
                                     </div>
                                 </div>
                             </li>
@@ -168,9 +168,9 @@
                         <li class="{{ (request()->segment(1)=='contact') ? 'active': '' }}"><a href="{{route('contact')}}">Liên hệ</a></li>
                         <li><a href="">Page</a>
                             <ul class="dropdown">
-                                <li><a href="blog-details.html">Blog Details</a></li>
+                                <li><a href="{{ route('blogDetail', 1) }}">Blog Details</a></li>
                                 <li class="{{ (request()->segment(1)=='Cart') ? 'active': '' }}"><a href="{{ route('cart') }}">Giỏ hàng</a></li>
-                                <li><a href="check-out.html">Thanh toán</a></li>
+                                <li><a href="{{ route('CheckOut') }}">Thanh toán</a></li>
                                 <li><a href="register.html">Đăng kí</a></li>
                                 <li><a href="login.html">Đăng nhập</a></li>
                             </ul>
@@ -325,7 +325,6 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
     <!-- Bootstrap theme -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
-
 
     <script>
         function AddCart(id) {

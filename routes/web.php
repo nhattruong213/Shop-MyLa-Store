@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Front\BlogController;
 use App\Http\Controllers\Front\CartController;
+use App\Http\Controllers\Front\CheckOutController;
 use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\ShopController;
@@ -49,4 +50,10 @@ Route::prefix('Cart')->group(function(){
     Route::get('/DeleteListCart/{id}',[CartController::class, 'DeleteListCart'])->name('DeleteListCart');
     Route::get('/DeleteAllCart',[CartController::class, 'DeleteAllCart'])->name('DeleteAllCart');
     Route::post('/UpdateItemCart/{id}',[CartController::class, 'UpdateItemCart'])->name('UpdateItemCart');
+});
+
+//route for checkout
+Route::prefix('CheckOut')->group(function(){
+    Route::get('/',[CheckOutController::class, 'index'])->name('CheckOut');
+    Route::post('/AddOrder',[CheckOutController::class, 'addOrder'])->name('addOrder');
 });

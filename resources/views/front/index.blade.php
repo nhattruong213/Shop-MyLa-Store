@@ -1,6 +1,9 @@
     @extends('front.layout.master')
     @section('title', 'HomePage')
     @section('body')
+
+  
+
     <!-- here section begin -->
     <section class="hero-section">
         <div class="hero-items owl-carousel">
