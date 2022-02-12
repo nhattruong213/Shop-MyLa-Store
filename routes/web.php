@@ -49,7 +49,7 @@ Route::prefix('Cart')->group(function(){
     Route::get('/DeleteItemCart/{id}',[CartController::class, 'DeleteItemCart'])->name('DeleteItemCart');
     Route::get('/DeleteListCart/{id}',[CartController::class, 'DeleteListCart'])->name('DeleteListCart');
     Route::get('/DeleteAllCart',[CartController::class, 'DeleteAllCart'])->name('DeleteAllCart');
-    Route::post('/UpdateItemCart/{id}',[CartController::class, 'UpdateItemCart'])->name('UpdateItemCart');
+    Route::get('/UpdateItemCart/{id}/{quanty}',[CartController::class, 'UpdateItemCart'])->name('UpdateItemCart');
 });
 
 //route for checkout

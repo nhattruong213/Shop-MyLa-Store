@@ -79,13 +79,12 @@ class CartController extends Controller
         return redirect()->back();
     }
 
-    public function UpdateItemCart(Request $request, $id)
+    public function UpdateItemCart(Request $request, $id, $quanty)
     {
-        $quanty = $request->quanty;
         $oldcart = Session('Cart') != null ? Session('Cart') : null ;
         $newcart = new Cart($oldcart);
         $newcart->UpdateItemCart($id, $quanty);
         $request->session()->put('Cart',$newcart); 
-        return redirect()->back();
+        return view('front.shop.components.list-cart');
     }
 }

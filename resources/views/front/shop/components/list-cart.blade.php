@@ -21,17 +21,14 @@
                         <h5>{{$item['productInfo']->name }}</h5>
                     </td>
                     <td class="p-price first-row">{{$item['productInfo']->discount != null ? $item['productInfo']->discount : $item['productInfo']->price }}K</td>
-                    <form action="{{ route('UpdateItemCart', $item['productInfo']->id ) }}" method="POST">
-                        @csrf
-                        <td class="qua-col first-row">
-                            <div class="quantity">
-                                <div class="pro-qty">
-                                    <input name="quanty"  type="number" required min="1" max="10" value="{{$item['quanty']}}">
-                                </div>
+                    <td class="qua-col first-row">
+                        <div class="quantity">
+                            <div class="pro-qty">
+                                <input id="quanty-item-{{ $item['productInfo']->id }}"  type="number" required min="1" max="10" value="{{$item['quanty']}}">
                             </div>
-                        </td>
-                        <td class="p-price first-row"><Button class="primary-btn up-cart" type="submit">Cập nhật</Button></td>
-                    </form>
+                        </div>
+                    </td>
+                    <td class="close-td first-row"><i onclick="UpdateCart({{$item['productInfo']->id}})" class="ti-save"></i></td>
                     <td class="total-price first-row">{{$item['price']}}K</td>
                     <td class="close-td first-row"><i class="ti-close" onclick="DeleteListCart({{$item['productInfo']->id}})"></i></td>
                 </tr>                              
