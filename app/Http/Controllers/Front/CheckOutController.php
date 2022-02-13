@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CheckOutRequest;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\ProductCategory;
@@ -20,7 +21,7 @@ class CheckOutController extends Controller
         $data['categories'] = $categories;
         return view('front.checkout.index', $data);
     }
-    public function addOrder(Request $request) 
+    public function addOrder(CheckOutRequest $request) 
     {
         if($request->payment_type == "pay_later")  // xử lí thanh toán sau gửi email thông báo 
         {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CommentRequest;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -46,7 +47,7 @@ class ShopController extends Controller
 
         return view('front.shop.show', $data);
     }
-    public function postComment(Request $request)
+    public function postComment(CommentRequest $request)
     {
        
             ProductComment::create($request->all());

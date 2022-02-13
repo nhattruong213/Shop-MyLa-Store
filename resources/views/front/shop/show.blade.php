@@ -243,12 +243,21 @@
                                                 <div class="row">
                                                     <div class="col-lg-6">
                                                        <input type="text" placeholder="Tên" name='name'> 
+                                                       @error('name')
+                                                       <div class="text-danger">{{ $message }}</div>
+                                                       @enderror
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <input type="text" placeholder="Email" name='email'>
+                                                        @error('email')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
                                                     </div>
                                                     <div class="col-lg-12">
                                                         <textarea placeholder="Nội dung" name='messages'></textarea>
+                                                        @error('messages')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
                                                         <div class="personal-rating">
                                                             <h6>Đánh giá của bạn</h6>
                                                             <div class="rate">
@@ -263,6 +272,9 @@
                                                                 <input type="radio" id="star1" name="rating" value="1" />
                                                                 <label for="star1" title="text">1 star</label>
                                                             </div>
+                                                            @error('rating')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                            @enderror
                                                         </div>
                                                         <button type="submit" class="site-btn">Gửi</button>
                                                     </div>
