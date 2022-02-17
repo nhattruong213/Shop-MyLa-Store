@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Front\BlogController;
 use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\CheckOutController;
@@ -56,4 +57,12 @@ Route::prefix('Cart')->group(function(){
 Route::prefix('CheckOut')->group(function(){
     Route::get('/',[CheckOutController::class, 'index'])->name('CheckOut');
     Route::post('/AddOrder',[CheckOutController::class, 'addOrder'])->name('addOrder');
+});
+
+// route for admin
+Route::prefix('admin')->group(function(){
+    Route::get('/',[AdminController::class, 'ShowDashBoard'])->name('PageAdmin');
+    Route::get('/login',[AdminController::class, 'index'])->name('ShowLogin');
+    route::post('/login',[AdminController::class, 'login'])->name('login');
+    route::get('/logout',[AdminController::class, 'logout'])->name('logout');
 });

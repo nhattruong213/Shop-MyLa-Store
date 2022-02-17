@@ -50,7 +50,7 @@
                 <li class="subtotal">Tổng đơn hàng <span>{{Session()->get('Cart')->totalPrice}}K</span></li>
                 <li class="cart-total">Cần thanh toán <span>{{Session()->get('Cart')->totalPrice}}K</span></li>
             </ul>
-            <a href="check-out.html" class="proceed-btn">Thực hiện thanh toán</a>
+            <a href="{{ route('CheckOut') }}" class="proceed-btn">Thực hiện thanh toán</a>
         </div>
     </div>
 </div>

@@ -2,7 +2,7 @@
     @section('title', 'HomePage')
     @section('body')
 
-  
+
 
     <!-- here section begin -->
     <section class="hero-section">
