@@ -33,7 +33,7 @@ class HomeController extends Controller
 
         // category 
 
-        $categories = ProductCategory::get();
+        $categories = ProductCategory::where('status','1')->get();
         $data['categories'] = $categories;
 
         return view('front.index', $data);

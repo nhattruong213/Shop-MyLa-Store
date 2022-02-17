@@ -134,12 +134,15 @@ class DatabaseSeeder extends Seeder
         DB::table('product_categories')->insert([
             [
                 'name' => 'Đồ Nam',
+                'status' => 1,
             ],
             [
                 'name' => 'Đồ nữ',
+                'status' => 1,
             ],
             [
                 'name' => 'Đồ trẻ em',
+                'status' => 1,
             ],
         ]);
 

@@ -12,7 +12,7 @@ class BlogController extends Controller
     public function index(Request $request)
     {
         $data = [];
-        $categories = ProductCategory::get();
+        $categories = ProductCategory::where('status','1')->get();
         $data['categories'] = $categories;
 
         $search = $request->search ?? '';

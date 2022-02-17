@@ -21,7 +21,7 @@ class ShopController extends Controller
         $data['product']= $product;
 
         //lấy dữ liệu danh mục
-        $categories = ProductCategory::get();
+        $categories = ProductCategory::where('status','1')->get();
         $data['categories'] = $categories;
 
         //dữ liệu brand
@@ -112,7 +112,7 @@ class ShopController extends Controller
         $search = $request->search ?? '';
 
         // category
-        $categories = ProductCategory::get();
+        $categories =ProductCategory::where('status','1')->get();
         $data['categories'] = $categories;
 
         //dữ liệu brand

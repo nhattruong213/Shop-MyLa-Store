@@ -22,7 +22,7 @@ class CartController extends Controller
 
 
          //lấy dữ liệu danh mục
-         $categories = ProductCategory::get();
+         $categories = ProductCategory::where('status','1')->get();
          $data['categories'] = $categories;
 
         return view('front.shop.cart', $data);

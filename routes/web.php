@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\AdminCategoryController;
 use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Front\BlogController;
 use App\Http\Controllers\Front\CartController;
@@ -65,4 +66,9 @@ Route::prefix('admin')->group(function(){
     Route::get('/login',[AdminController::class, 'index'])->name('ShowLogin');
     route::post('/login',[AdminController::class, 'login'])->name('login');
     route::get('/logout',[AdminController::class, 'logout'])->name('logout');
+
+    // for category admin\
+    route::get('/Addcategory',[AdminCategoryController::class, 'showAddCategory'])->name('showAddCategory');
+    route::post('/Addcategory',[AdminCategoryController::class, 'AddCategory'])->name('AddCategory');
+    
 });

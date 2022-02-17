@@ -17,7 +17,7 @@ class CheckOutController extends Controller
     public function index ()
     {
         //lấy dữ liệu danh mục
-        $categories = ProductCategory::get();
+        $categories = ProductCategory::where('status','1')->get();
         $data['categories'] = $categories;
         return view('front.checkout.index', $data);
     }
