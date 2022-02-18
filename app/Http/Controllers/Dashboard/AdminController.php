@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\User;
 use Illuminate\Http\Request;
 use session;
 class AdminController extends Controller
@@ -17,7 +20,18 @@ class AdminController extends Controller
     }
     public function ShowDashBoard(Request $request){
         if($request->session()->has('Login')){
-            return view('dashboard.index'); 
+            $data = [];
+            $sumTotal = OrderDetail::sum('total');
+            $data['sumTotal'] = $sumTotal;
+
+            $countOrder = count(Order::get());
+            $data['countOrder'] = $countOrder;
+
+            $countUser = count(User::get());
+            $data['countUser'] = $countUser;
+
+
+            return view('dashboard.index', $data); 
         } else{
             return view('dashboard.login');
         }

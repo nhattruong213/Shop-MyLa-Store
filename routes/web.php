@@ -70,5 +70,10 @@ Route::prefix('admin')->group(function(){
     // for category admin\
     route::get('/Addcategory',[AdminCategoryController::class, 'showAddCategory'])->name('showAddCategory');
     route::post('/Addcategory',[AdminCategoryController::class, 'AddCategory'])->name('AddCategory');
+    route::get('/ShowAllCategory',[AdminCategoryController::class, 'ShowAllCategory'])->name('ShowAllCategory');
+    route::get('/deleteCategory/{id}',[AdminCategoryController::class, 'deleteAdminCategory'])->name('deleteAdminCategory');
+    route::get('/editCategory/{id}',[AdminCategoryController::class, 'editAdminCategory'])->name('editAdminCategory'); 
+    route::post('/UpdateCategory/{id}',[AdminCategoryController::class, 'UpdateCategory'])->name('UpdateCategory');
+
     
 });

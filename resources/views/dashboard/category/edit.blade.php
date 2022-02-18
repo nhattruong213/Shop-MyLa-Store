@@ -4,7 +4,7 @@
     <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    Thêm mới danh mục
+                    Chỉnh sửa danh mục
                 </header>
                 <div class="panel-body">
                     <div class="position-center">
@@ -16,15 +16,11 @@
                          @if(Session::has('error'))
                          <p class="text-danger">{{ Session::get('error') }}</p>
                          @endif
-                        <form action="{{ route('AddCategory') }}" method="POST" role="form">
+                        <form action="{{ route('UpdateCategory', $category->id) }}" method="POST" role="form">
                             @csrf
                             <div class="form-group">
                                 <label for="name">Tên danh mục(*)</label>
-                                <input type="text" class="form-control" name="name" placeholder="Tên danh mục">
-                            </div>
-                            <div class="form-group">
-                                <label for="description">Mô tả</label>
-                                <textarea style="resize: none" rows="10"  class="form-control" name="description" placeholder="Mô tả danh mục"> </textarea>
+                                <input type="text" class="form-control" name="name" placeholder="Tên danh mục" value="{{ $category->name }}">
                             </div>
                             <div class="form-group">
                                 <label for="status">Trạng thái(*)</label>
@@ -33,7 +29,7 @@
                                     <option value="0">Ẩn</option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-info">Thêm mới</button>
+                            <button type="submit" class="btn btn-info">Chỉnh sửa</button>
                          </form>
                     </div>
 
