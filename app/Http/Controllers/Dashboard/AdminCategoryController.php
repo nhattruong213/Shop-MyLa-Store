@@ -12,6 +12,7 @@ class AdminCategoryController extends Controller
     public function showAddCategory() {
         return view('dashboard.category.create');
     }
+
     public function AddCategory(Request $request){
         $dataSave = $request->only([
             'name',
@@ -29,6 +30,13 @@ class AdminCategoryController extends Controller
     public function ShowAllCategory(){
         $data = [];
         $categories = ProductCategory::paginate(10);
+        $data['categories'] = $categories;
+        return view('dashboard.category.show', $data);
+    }
+    public function searchCategoryAdmin(Request $request){
+        $data = [];
+        $search = $request->name;
+        $categories = ProductCategory::where('name','like','%'.$search.'%')->paginate(10);
         $data['categories'] = $categories;
         return view('dashboard.category.show', $data);
     }

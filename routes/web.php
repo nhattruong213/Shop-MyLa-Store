@@ -74,6 +74,7 @@ Route::prefix('admin')->group(function(){
     route::get('/deleteCategory/{id}',[AdminCategoryController::class, 'deleteAdminCategory'])->name('deleteAdminCategory');
     route::get('/editCategory/{id}',[AdminCategoryController::class, 'editAdminCategory'])->name('editAdminCategory'); 
     route::post('/UpdateCategory/{id}',[AdminCategoryController::class, 'UpdateCategory'])->name('UpdateCategory');
+    route::get('/searchCategoryAdmin',[AdminCategoryController::class, 'searchCategoryAdmin'])->name('searchCategoryAdmin');
 
     
 });
