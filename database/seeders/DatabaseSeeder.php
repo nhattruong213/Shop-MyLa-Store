@@ -119,15 +119,28 @@ class DatabaseSeeder extends Seeder
         DB::table('brands')->insert([
             [
                 'name' => 'Calvin Klein',
+                'status' => 1,
             ],
             [
                 'name' => 'Chà neo',
+                'status' => 1,
             ],
             [
                 'name' => 'Gu chì',
-            ],
+                'status' => 1,
+            ], 
             [
                 'name' => 'Hơ mặc',
+                'status' => 1,
+            ],
+        ]);
+
+        DB::table('admins')->insert([
+            [
+                'email' => 'nguyennhattruong11223344@gmail.com',
+                'password' => '0121949',
+                'name' => 'Nhật Trường',
+                'phone' => '0397320011',
             ],
         ]);
 
@@ -161,6 +174,7 @@ class DatabaseSeeder extends Seeder
                 'sku' => '00012',
                 'featured' => true,
                 'tag' => 'Đồ đông',
+                'status' => 1,
             ],
             [
                 'id' => 2,
@@ -176,6 +190,7 @@ class DatabaseSeeder extends Seeder
                 'sku' => null,
                 'featured' => true,
                 'tag' => 'Đồ đông',
+                'status' => 1,
             ],
             [
                 'id' => 3,
@@ -191,6 +206,7 @@ class DatabaseSeeder extends Seeder
                 'sku' => null,
                 'featured' => true,
                 'tag' => 'Sơ mi',
+                'status' => 1,
             ],
             [
                 'id' => 4,
@@ -206,6 +222,7 @@ class DatabaseSeeder extends Seeder
                 'sku' => null,
                 'featured' => true,
                 'tag' => 'Đồ đông',
+                'status' => 1,
             ],
             [
                 'id' => 5,
@@ -221,6 +238,7 @@ class DatabaseSeeder extends Seeder
                 'sku' => null,
                 'featured' => false,
                 'tag' => 'Mũ nón',
+                'status' => 1,
             ],
             [
                 'id' => 6,
@@ -236,6 +254,7 @@ class DatabaseSeeder extends Seeder
                 'sku' => null,
                 'featured' => true,
                 'tag' => 'Đồ đông',
+                'status' => 1,
             ],
             [
                 'id' => 7,
@@ -251,6 +270,7 @@ class DatabaseSeeder extends Seeder
                 'sku' => null,
                 'featured' => true,
                 'tag' => 'Ba lô',
+                'status' => 1,
             ],
             [
                 'id' => 8,
@@ -266,6 +286,7 @@ class DatabaseSeeder extends Seeder
                 'sku' => null,
                 'featured' => true,
                 'tag' => 'Áo khoác',
+                'status' => 1,
             ],
             [
                 'id' => 9,
@@ -281,6 +302,7 @@ class DatabaseSeeder extends Seeder
                 'sku' => null,
                 'featured' => true,
                 'tag' => 'Giày',
+                'status' => 1,
             ],
         ]);
 

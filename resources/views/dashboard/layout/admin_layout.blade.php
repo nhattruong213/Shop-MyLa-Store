@@ -94,6 +94,26 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<li><a href="{{ route('ShowAllCategory') }}">Xem tất cả danh mục</a></li>
 						</ul>
 					</li>
+					<li class="sub-menu">
+						<a href="javascript:;">
+							<i class="fa fa-book"></i>
+							<span>Thương hiệu sản phẩm</span>
+						</a>
+						<ul class="sub">
+							<li><a href="{{ route('showAddBrand') }}">Thêm thương hiệu</a></li>
+							<li><a href="{{ route('ShowAllBrand') }}">Xem tất cả thương hiệu</a></li>
+						</ul>
+					</li>
+					<li class="sub-menu">
+						<a href="javascript:;">
+							<i class="fa fa-book"></i>
+							<span>Sản phẩm</span>
+						</a>
+						<ul class="sub">
+							<li><a href="{{ route('showAddProduct') }}">Thêm sản phẩm</a></li>
+							{{-- <li><a href="{{ route('ShowAllBrand') }}">Tất cả thương hiệu</a></li> --}}
+						</ul>
+					</li>
 				</ul>            
 			</div>
 			<!-- sidebar menu end-->

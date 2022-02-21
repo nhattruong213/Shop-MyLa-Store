@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CheckOutRequest;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\Product;
 use App\Models\ProductCategory;
 use Exception;
 use Illuminate\Http\Request;
@@ -38,6 +39,11 @@ class CheckOutController extends Controller
                     'total' => $item['price'],
                 ];
                 OrderDetail::create($dataSave);
+
+                // trừ tồn kho
+                $product = Product::findOrFail($item['productInfo']->id);
+                $product->qty -= $item['quanty'];
+                $product->save();
             }
                  
             // gửi mail

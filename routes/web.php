@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Dashboard\AdminCategoryController;
 use App\Http\Controllers\Dashboard\AdminController;
+use App\Http\Controllers\Dashboard\BrandAdminController;
+use App\Http\Controllers\Dashboard\ProductAdminController;
 use App\Http\Controllers\Front\BlogController;
 use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\CheckOutController;
@@ -76,5 +78,17 @@ Route::prefix('admin')->group(function(){
     route::post('/UpdateCategory/{id}',[AdminCategoryController::class, 'UpdateCategory'])->name('UpdateCategory');
     route::get('/searchCategoryAdmin',[AdminCategoryController::class, 'searchCategoryAdmin'])->name('searchCategoryAdmin');
 
+    // for brands admin
+    route::get('/AddBrand',[BrandAdminController::class, 'showAddBrand'])->name('showAddBrand');
+    route::post('/AddBrand',[BrandAdminController::class, 'AddBrand'])->name('AddBrand');
+    route::get('/ShowAllBrand',[BrandAdminController::class, 'ShowAllBrand'])->name('ShowAllBrand');
+    route::get('/deleteBrand/{id}',[BrandAdminController::class, 'deleteAdminBrand'])->name('deleteAdminBrand');
+    route::get('/editBrand/{id}',[BrandAdminController::class, 'editAdminBrand'])->name('editAdminBrand'); 
+    route::post('/UpdateBrand/{id}',[BrandAdminController::class, 'UpdateBrand'])->name('UpdateBrand');
+    route::get('/searchBrandAdmin',[BrandAdminController::class, 'searchBrandAdmin'])->name('searchBrandAdmin');
     
+
+    // for product admin
+    route::get('/AddProduct',[ProductAdminController::class, 'showAddProduct'])->name('showAddProduct');
+    route::post('/AddProduct',[ProductAdminController::class, 'AddProduct'])->name('AddProduct');
 });

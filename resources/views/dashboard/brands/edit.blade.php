@@ -16,14 +16,18 @@
                          @if(Session::has('error'))
                          <p class="text-danger">{{ Session::get('error') }}</p>
                          @endif
-                        <form action="{{ route('UpdateCategory', $category->id) }}" method="POST" role="form">
+                        <form action="{{ route('UpdateBrand', $brand->id) }}" method="POST" role="form">
                             @csrf
                             <div class="form-group">
                                 <label for="name">Tên danh mục(*)</label>
-                                <input type="text" class="form-control" name="name" placeholder="Tên danh mục" value="{{ $category->name }}">
+                                <input type="text" class="form-control" name="name" placeholder="Tên danh mục" value="{{ $brand->name }}">
                                 @error('name')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Mô tả</label>
+                                <textarea style="resize: none" rows="10"  class="form-control" name="description" placeholder="Mô tả danh mục"> </textarea>
                             </div>
                             <div class="form-group">
                                 <label for="status">Trạng thái(*)</label>

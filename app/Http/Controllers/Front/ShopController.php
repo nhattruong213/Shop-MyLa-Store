@@ -72,7 +72,7 @@ class ShopController extends Controller
         $search = $request->search ?? '';
 
        // search
-        $products = Product::where('name', 'like', '%'.$search.'%');
+        $products = Product::where('name', 'like', '%'.$search.'%')->where('status','1');
 
 
         //theo brands
@@ -121,7 +121,7 @@ class ShopController extends Controller
 
 
         // dữ liệu product
-        $products = Product::where('product_category_id', $id);
+        $products = Product::where('product_category_id', $id)->where('status','1');
 
 
         //  //theo brands and category

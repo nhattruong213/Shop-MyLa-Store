@@ -21,6 +21,9 @@
                             <div class="form-group">
                                 <label for="name">Tên danh mục(*)</label>
                                 <input type="text" class="form-control" name="name" placeholder="Tên danh mục">
+                                @error('name')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="description">Mô tả</label>
@@ -32,6 +35,9 @@
                                     <option value="1">Hiển thị</option>
                                     <option value="0">Ẩn</option>
                                 </select>
+                                @error('status')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <button type="submit" class="btn btn-info">Thêm mới</button>
                          </form>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Request\CategoryRequest;
 use App\Models\ProductCategory;
 use Exception;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class AdminCategoryController extends Controller
         return view('dashboard.category.create');
     }
 
-    public function AddCategory(Request $request){
+    public function AddCategory(CategoryRequest $request){
         $dataSave = $request->only([
             'name',
             'status',
@@ -55,7 +56,7 @@ class AdminCategoryController extends Controller
         $data['category'] = $category;
         return view('dashboard.category.edit', $data);
     }
-    public function UpdateCategory($id, Request $request){
+    public function UpdateCategory($id, CategoryRequest $request){
         $category = ProductCategory::findOrFail($id);
         
         try {
