@@ -24,6 +24,10 @@
     <link rel="stylesheet" href="front/css/jquery-ui.min.css" type="text/css">
     <link rel="stylesheet" href="front/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="front/css/style.css" type="text/css">
+
+     <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" 
+    crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -49,7 +53,7 @@
                     </div>
                 </div>
                 <div class="ht-right">
-                    <a href="login.html" class="login-panel"><i class="fa fa-user"></i>Đăng nhập</a>
+                    @include('front.layout.ac')
                     <div class="lan-selector">
                         <select class="language_drop" name="countries" id="countries" style="width: 300px;">
                             <option value="yt" data-image="front/img/a.jpg"
@@ -171,8 +175,8 @@
                                 <li><a href="{{ route('blogDetail', 1) }}">Blog Details</a></li>
                                 <li class="{{ (request()->segment(1)=='Cart') ? 'active': '' }}"><a href="{{ route('cart') }}">Giỏ hàng</a></li>
                                 <li><a href="{{ route('CheckOut') }}">Thanh toán</a></li>
-                                <li><a href="register.html">Đăng kí</a></li>
-                                <li><a href="login.html">Đăng nhập</a></li>
+                                <li><a href="{{ route('register') }}">Đăng kí</a></li>
+                                <li><a href="{{ route('login') }}">Đăng nhập</a></li>
                             </ul>
                         </li>
                     </ul>

@@ -30,7 +30,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="log-w3">
 <div class="w3layouts-main">
 	<h2>Đăng nhập</h2>
-		<form action="{{ route('login') }}" method="post">
+		<form action="{{ route('loginAdmin') }}" method="post">
 			@csrf
 			<input type="email" class="ggg" name="email" placeholder="E-MAIL" value="{{ request()->email }}" required="">
 			<input type="password" class="ggg" name="password" placeholder="PASSWORD" required="">

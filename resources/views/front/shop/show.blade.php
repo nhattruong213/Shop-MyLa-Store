@@ -216,7 +216,7 @@
                                             @foreach ($product->productComments as $productComment)                                                
                                                 <div class="co-item">
                                                     <div class="avatar-pic">
-                                                        <img src="front/img/product-single/{{ $productComment->user->avatar ?? 'ac.jpg' }}" alt="">
+                                                        <img src="front/img/user/{{ $productComment->user->avatar ?? 'ac.jpg' }}" alt="">
                                                     </div>
                                                     <div class="avatar-text">
                                                         <div class="at-rating">
@@ -242,13 +242,13 @@
                                                 <input type="hidden" name="user_id" value="{{ \Illuminate\Support\Facades\Auth::user()->id ?? null }}">
                                                 <div class="row">
                                                     <div class="col-lg-6">
-                                                       <input type="text" placeholder="Tên" name='name'> 
+                                                       <input type="text" placeholder="Tên" name='name' value="{{ Auth::user()->last_name ?? null }}"> 
                                                        @error('name')
                                                        <div class="text-danger">{{ $message }}</div>
                                                        @enderror
                                                     </div>
                                                     <div class="col-lg-6">
-                                                        <input type="text" placeholder="Email" name='email'>
+                                                        <input type="text" placeholder="Email" name='email' value="{{ Auth::user()->email ?? null }}">
                                                         @error('email')
                                                         <div class="text-danger">{{ $message }}</div>
                                                         @enderror

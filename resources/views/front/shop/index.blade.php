@@ -51,7 +51,7 @@
                             <div class="col-lg-4 col-sm-6">
                                 <div class="product-item">
                                     <div class="pi-pic">
-                                        <img src="front/img/products/{{ $product->productImages[0]->path }}" alt="">
+                                        <img  src="front/img/products/{{ $product->productImages[0]->path }}" alt="">
                                         @if($product->discount != null)
                                             <div class="sale pp-sale">Sale</div>
                                         @endif

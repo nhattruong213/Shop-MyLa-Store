@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ProductRequest;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -20,7 +21,7 @@ class ProductAdminController extends Controller
         $data['brands'] = $brands;
         return view('dashboard.product.create', $data);
     }
-    public function AddProduct(Request $request){
+    public function AddProduct(ProductRequest $request){
 
         $dataSave = [
             'brand_id' => $request->brand_id,

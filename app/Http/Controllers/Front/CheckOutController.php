@@ -44,6 +44,7 @@ class CheckOutController extends Controller
                 $product = Product::findOrFail($item['productInfo']->id);
                 $product->qty -= $item['quanty'];
                 $product->save();
+
             }
                  
             // gửi mail

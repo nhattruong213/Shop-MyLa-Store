@@ -12,14 +12,14 @@ use session;
 class AdminController extends Controller
 {
     public function index(Request $request){
-        if($request->session()->has('Login')){
+        if($request->session()->has('LoginAdmin')){
             return redirect()->route('PageAdmin'); 
         } else{
             return view('dashboard.login');
         }
     }
     public function ShowDashBoard(Request $request){
-        if($request->session()->has('Login')){
+        if($request->session()->has('LoginAdmin')){
             $data = [];
             $sumTotal = OrderDetail::sum('total');
             $data['sumTotal'] = $sumTotal;
@@ -41,14 +41,14 @@ class AdminController extends Controller
         $password = $request->password;
         $result = Admin::where('email', $email)->where('password', $password)->first();
         if($result!=null) {
-            $request->session()->put('Login', $result);
+            $request->session()->put('LoginAdmin', $result);
            return redirect()->route('PageAdmin');
         }else{
             return redirect()->back()->with('error', 'Email hoặc password không đúng.');
         }
     }
     public function logout(Request $request){
-        $request->session()->forget('Login');
+        $request->session()->forget('LoginAdmin');
         return redirect()->route('ShowLogin');
     }
 }

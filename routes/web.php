@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Dashboard\AdminCategoryController;
 use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\BrandAdminController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\ShopController;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,9 +24,17 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+ 
+Route::get('profile', [AuthenticatedSessionController::class, 'show'])
+                ->name('profile')->middleware(['auth']);
+Route::post('ChangeProfile/{id}', [AuthenticatedSessionController::class, 'ChangeProfile'])
+                ->name('ChangeProfile')->middleware(['auth']);              
 
 Route::get('/',[HomeController::class, 'index'])->name('homepage');
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
 // route for shop 
 Route::prefix('shop')->group(function(){
@@ -61,13 +71,19 @@ Route::prefix('CheckOut')->group(function(){
     Route::get('/',[CheckOutController::class, 'index'])->name('CheckOut');
     Route::post('/AddOrder',[CheckOutController::class, 'addOrder'])->name('addOrder');
 });
+// Route::group(['middleware' => ['check_login_admin'] , 'as' => 'admin.'], function () {
+  
+
+   
+// });
+
 
 // route for admin
 Route::prefix('admin')->group(function(){
     Route::get('/',[AdminController::class, 'ShowDashBoard'])->name('PageAdmin');
     Route::get('/login',[AdminController::class, 'index'])->name('ShowLogin');
-    route::post('/login',[AdminController::class, 'login'])->name('login');
-    route::get('/logout',[AdminController::class, 'logout'])->name('logout');
+    route::post('/login',[AdminController::class, 'login'])->name('loginAdmin');
+    route::get('/logout',[AdminController::class, 'logout'])->name('logoutAdmin');
 
     // for category admin\
     route::get('/Addcategory',[AdminCategoryController::class, 'showAddCategory'])->name('showAddCategory');
@@ -92,3 +108,9 @@ Route::prefix('admin')->group(function(){
     route::get('/AddProduct',[ProductAdminController::class, 'showAddProduct'])->name('showAddProduct');
     route::post('/AddProduct',[ProductAdminController::class, 'AddProduct'])->name('AddProduct');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';

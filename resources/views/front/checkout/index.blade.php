@@ -17,8 +17,6 @@
     </div>
     <!-- breadcrumb section end --> 
 
-
-
     <!-- shopping cart section begin -->
     <div class="checkout-section spad">
         <div class="container">
@@ -30,57 +28,57 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <label for="first_name">Họ <span>*</span></label>
-                            <input type="text" id="first_name" name="first_name">
+                            <input type="text" id="first_name" name="first_name" value="{{ Auth::user()->first_name ?? '' }}">
                             @error('first_name')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="col-lg-6">
                             <label for="last_name">Tên <span>*</span></label>
-                            <input type="text" id="last_name" name="last_name">
+                            <input type="text" id="last_name" name="last_name" value="{{ Auth::user()->last_name ?? '' }}">
                             @error('last_name')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="col-lg-12">
                             <label for="company_name">Công ty </label>
-                            <input type="text" id="company_name" name="company_name">
+                            <input type="text" id="company_name" name="company_name" value="{{ Auth::user()->company_name ?? '' }}">
                         </div>
                         <div class="col-lg-12">
                             <label for="country">Quốc gia <span>*</span> </label>
-                            <input type="text" id="country" name="country">
+                            <input type="text" id="country" name="country" value="{{ Auth::user()->country ?? 'Việt Nam' }}">
                             @error('country')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="col-lg-12">
                             <label for="street_address">Tên đường(địa chỉ cụ thể) <span>*</span> </label>
-                            <input type="text" id="street_address" name="street_address">
+                            <input type="text" id="street_address" name="street_address" value="{{ Auth::user()->street_address ?? '' }}">
                             @error('street_address')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="col-lg-12">
                             <label for="postcode_zip">Zip code </label>
-                            <input type="text" id="postcode_zip" name="postcode_zip">
+                            <input type="text" id="postcode_zip" name="postcode_zip" value="{{ Auth::user()->postcode_zip ?? '' }}">
                         </div>
                         <div class="col-lg-12">
                             <label for="town_city">Tỉnh, Thành phố <span>*</span> </label>
-                            <input type="text" id="town_city" name="town_city">
+                            <input type="text" id="town_city" name="town_city" value="{{ Auth::user()->town_city ?? '' }}">
                             @error('town_city')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="col-lg-6">
                             <label for="email">Email <span>*</span> </label>
-                            <input type="text" id="email" name="email">
+                            <input type="text" id="email" name="email" value="{{ Auth::user()->email ?? '' }}">
                             @error('email')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="col-lg-6">
                             <label for="phone">Điện thoại <span>*</span> </label>
-                            <input type="text" id="phone" name="phone">
+                            <input type="text" id="phone" name="phone" value="{{ Auth::user()->phone ?? '' }}">
                             @error('phone')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
