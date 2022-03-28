@@ -7,7 +7,7 @@
       
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
           <li><a class="dropdown-item" href="{{ route('profile') }}">Hồ sơ</a></li>
-          <li><a class="dropdown-item" href="#">Đổi mật khẩu</a></li>
+          <li><a class="dropdown-item" href="{{ route('ViewHistoryOrder',Auth::user()->email) }}">Lịch sử mua hàng</a></li>
           <li>
             <form action="{{ route('logout') }}" method="POST">
                 @csrf

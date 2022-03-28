@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\ProfileRequest;
+use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -52,9 +55,9 @@ class AuthenticatedSessionController extends Controller
     {
         Auth::guard('web')->logout();
 
-        $request->session()->invalidate();
+        // $request->session()->invalidate();
 
-        $request->session()->regenerateToken();
+        // $request->session()->regenerateToken();
 
         return redirect()->route('login');
     }
@@ -94,6 +97,43 @@ class AuthenticatedSessionController extends Controller
         } catch (Exception $ex) {
             return redirect()->back()
                 ->with('error', 'Lưu hồ sơ thất bại.');
+        }
+    }
+    public function ViewHistoryOrder($email){
+        $data = [];
+        $categories = ProductCategory::where('status','1')->get();
+        $data['categories'] = $categories;
+        $orders = Order::where('email',$email)->orderBy('id','desc')->get();
+        $data['orders'] = $orders;
+        return view('front.profile.order', $data);
+    }
+    public function ViewOrderDetail($id){
+        $data = [];
+        $categories = ProductCategory::where('status','1')->get();
+        $data['categories'] = $categories;
+        $OrderDetails = OrderDetail::where('order_id',$id)->get();
+        // dd($OrderDetails);
+        $data['OrderDetails'] = $OrderDetails;
+        return view('front.profile.detail', $data);
+    }
+    public function returnOrder($id) {
+        $order = Order::findOrFail($id);
+        if($order->status==0) {  // trường hợp đang đang chờ thì cho hủy 
+            // 1. xóa chi tiết của đơn hàng đó
+            $OrderDetail = OrderDetail::where('order_id', $order->id)->get();
+            // cập nhật lại số lượng tồn kho
+            foreach($OrderDetail as $item){
+                $product = Product::findOrFail($item->product_id);
+                $product->qty += $item->qty;
+                $product->save();
+            }
+            OrderDetail::where('order_id', $order->id)->delete();  // xóa order detail
+             // xóa order
+            $order->delete();
+            return redirect()->back()->with('success', 'Hủy đơn hàng thành công.');
+        }
+        else { // còn lại k cho hủy đơn
+            return redirect()->back()->with('error', 'Không thể hủy đơn hàng này.');
         }
     }
 }

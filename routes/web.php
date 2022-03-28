@@ -1,10 +1,6 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Dashboard\AdminCategoryController;
-use App\Http\Controllers\Dashboard\AdminController;
-use App\Http\Controllers\Dashboard\BrandAdminController;
-use App\Http\Controllers\Dashboard\ProductAdminController;
 use App\Http\Controllers\Front\BlogController;
 use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\CheckOutController;
@@ -28,7 +24,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('profile', [AuthenticatedSessionController::class, 'show'])
                 ->name('profile')->middleware(['auth']);
 Route::post('ChangeProfile/{id}', [AuthenticatedSessionController::class, 'ChangeProfile'])
-                ->name('ChangeProfile')->middleware(['auth']);              
+                ->name('ChangeProfile')->middleware(['auth']);     
+Route::get('ViewHistoryOrder/{email}', [AuthenticatedSessionController::class, 'ViewHistoryOrder'])
+                ->name('ViewHistoryOrder')->middleware(['auth']);  
+Route::get('ViewOrderDetail/{id}', [AuthenticatedSessionController::class, 'ViewOrderDetail'])
+                ->name('ViewOrderDetail')->middleware(['auth']); 
+Route::get('returnOrder/{id}', [AuthenticatedSessionController::class, 'returnOrder'])
+                ->name('returnOrder')->middleware(['auth']);           
 
 Route::get('/',[HomeController::class, 'index'])->name('homepage');
 
@@ -71,46 +73,10 @@ Route::prefix('CheckOut')->group(function(){
     Route::get('/',[CheckOutController::class, 'index'])->name('CheckOut');
     Route::post('/AddOrder',[CheckOutController::class, 'addOrder'])->name('addOrder');
 });
-// Route::group(['middleware' => ['check_login_admin'] , 'as' => 'admin.'], function () {
-  
-
-   
-// });
-
-
-// route for admin
-Route::prefix('admin')->group(function(){
-    Route::get('/',[AdminController::class, 'ShowDashBoard'])->name('PageAdmin');
-    Route::get('/login',[AdminController::class, 'index'])->name('ShowLogin');
-    route::post('/login',[AdminController::class, 'login'])->name('loginAdmin');
-    route::get('/logout',[AdminController::class, 'logout'])->name('logoutAdmin');
-
-    // for category admin\
-    route::get('/Addcategory',[AdminCategoryController::class, 'showAddCategory'])->name('showAddCategory');
-    route::post('/Addcategory',[AdminCategoryController::class, 'AddCategory'])->name('AddCategory');
-    route::get('/ShowAllCategory',[AdminCategoryController::class, 'ShowAllCategory'])->name('ShowAllCategory');
-    route::get('/deleteCategory/{id}',[AdminCategoryController::class, 'deleteAdminCategory'])->name('deleteAdminCategory');
-    route::get('/editCategory/{id}',[AdminCategoryController::class, 'editAdminCategory'])->name('editAdminCategory'); 
-    route::post('/UpdateCategory/{id}',[AdminCategoryController::class, 'UpdateCategory'])->name('UpdateCategory');
-    route::get('/searchCategoryAdmin',[AdminCategoryController::class, 'searchCategoryAdmin'])->name('searchCategoryAdmin');
-
-    // for brands admin
-    route::get('/AddBrand',[BrandAdminController::class, 'showAddBrand'])->name('showAddBrand');
-    route::post('/AddBrand',[BrandAdminController::class, 'AddBrand'])->name('AddBrand');
-    route::get('/ShowAllBrand',[BrandAdminController::class, 'ShowAllBrand'])->name('ShowAllBrand');
-    route::get('/deleteBrand/{id}',[BrandAdminController::class, 'deleteAdminBrand'])->name('deleteAdminBrand');
-    route::get('/editBrand/{id}',[BrandAdminController::class, 'editAdminBrand'])->name('editAdminBrand'); 
-    route::post('/UpdateBrand/{id}',[BrandAdminController::class, 'UpdateBrand'])->name('UpdateBrand');
-    route::get('/searchBrandAdmin',[BrandAdminController::class, 'searchBrandAdmin'])->name('searchBrandAdmin');
-    
-
-    // for product admin
-    route::get('/AddProduct',[ProductAdminController::class, 'showAddProduct'])->name('showAddProduct');
-    route::post('/AddProduct',[ProductAdminController::class, 'AddProduct'])->name('AddProduct');
-});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+// include __DIR__.'/admin.php';

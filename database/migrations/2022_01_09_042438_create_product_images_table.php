@@ -18,6 +18,8 @@ class CreateProductImagesTable extends Migration
             $table->integer('product_id')->unsigned();
             $table->string('path');
             $table->timestamps();
+
+            // $table->foreign('product_id')->references('id')->on('products');
         });
     }
 

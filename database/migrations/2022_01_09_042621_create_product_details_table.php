@@ -20,6 +20,8 @@ class CreateProductDetailsTable extends Migration
             $table->string('size');
             $table->integer('qty');
             $table->timestamps();
+
+            // $table->foreign('product_id')->references('id')->on('products');
         });
     }
 

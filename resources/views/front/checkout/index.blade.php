@@ -109,6 +109,8 @@
                                 <li class="total-price">Tổng thanh toán <span>{{Session()->get('Cart')->totalPrice}}K</span></li>
                             </ul>
                             <div class="payment-check">
+                                    <input type="hidden" name="status" value="0">
+                                    <input type="hidden" name="subtotal" value="{{Session()->get('Cart')->totalPrice}}">
                                     <div class="pc-item">
                                     <label for="pc-check">
                                         Thanh toán khi nhận hàng
@@ -123,10 +125,13 @@
                                         <span class="checkmark"></span>
                                     </label>
                                     </div>
+                                    
                             </div>
                             <div class="order-btn">
-                                <button type="submit" class="site-btn place-order">Đặt hàng</button>
+                                {{-- <button type="submit" class="site-btn place-order">Đặt hàng</button> --}}
+                                <button type="submit" name="redirect" class="site-btn place-order">Đặt hàng</button>
                             </div>
+                      
                             @else
                                 @if(Session::has('success'))
                                 <p class="text-success">{{ Session::get('success') }}</p>
@@ -141,6 +146,10 @@
             </div>
         </form> 
         </div>
+        {{-- <form action="{{ route('Payment_online') }}" method="POST">
+            @csrf
+            <button type="submit" name="redirect">Online </button>
+        </form> --}}
     </div>
     <!-- shopping cart section end -->
 @endsection

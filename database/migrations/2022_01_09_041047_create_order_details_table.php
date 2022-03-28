@@ -21,6 +21,10 @@ class CreateOrderDetailsTable extends Migration
             $table->double('amount', 16, 2);
             $table->double('total', 16, 2);
             $table->timestamps();
+
+            // $table->foreign('order_id')->references('id')->on('orders');
+            // $table->foreign('product_id')->references('id')->on('products');
+
         });
     }
 

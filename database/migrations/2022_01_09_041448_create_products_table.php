@@ -28,8 +28,11 @@ class CreateProductsTable extends Migration
             $table->boolean('featured');
             $table->string('tag')->nullable();
             $table->string('status');
-            
             $table->timestamps();
+
+            // $table->foreign('brand_id')->references('id')->on('brands');
+            // $table->foreign('product_category_id')->references('id')->on('product_categories');
+
         });
     }
 

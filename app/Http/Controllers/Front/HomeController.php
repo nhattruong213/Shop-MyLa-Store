@@ -20,11 +20,11 @@ class HomeController extends Controller
     {
         $data = [];
         // 4 sản phẩm mới nhất của nam
-        $menProducts = Product::where('featured', 1)->where('product_category_id', 1)->where('status','1')-> with('productImages')-> take(4) ->get();
+        $menProducts = Product::where('featured', 1)->where('product_category_id', 1)->where('status','1')-> with('productImages') ->get();
         $data['menProducts'] = $menProducts;
 
         // 4 sản phẩm mới nhất của nữ 
-        $womenProducts = Product::where('featured', 1)->where('product_category_id', 2)->where('status','1')-> with('productImages')-> take(4) ->get();
+        $womenProducts = Product::where('featured', 1)->where('product_category_id', 2)->where('status','1')-> with('productImages')->get();
         $data['womenProducts']= $womenProducts;
 
         // 3 blog
