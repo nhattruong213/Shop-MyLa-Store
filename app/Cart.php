@@ -29,11 +29,11 @@ class Cart{
             if($quanty!=null){
                 $newProduct['quanty'] += $quanty;
                 // dd($newProduct['quanty']);
-                $this ->totalQuanty += $quanty ;
+                $this->totalQuanty += $quanty ;
                 $this->totalPrice += $quanty * $checkprice;
             }else {
                 $newProduct['quanty']++;
-                $this ->totalQuanty++;
+                $this->totalQuanty++;
                 $this->totalPrice += $checkprice;
             }
               

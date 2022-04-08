@@ -18,12 +18,12 @@ class CheckAdminLogin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::guard('admin')->check() ) {
-            dd("1111111");
+        if (!Auth::guard('admin')->check() && !in_array(Route::currentRouteName(), ['admin.login', 'admin.login.handle']) ) {
+            // dd("1111111");
             return redirect()->route('admin.login');
         }
 
-        if (Auth::guard('admin')->check() ) {
+        if (Auth::guard('admin')->check() && in_array(Route::currentRouteName(), ['admin.login', 'admin.login.handle']) ) {
             return redirect()->route('admin.dashboard');
         }
 

@@ -54,7 +54,7 @@
                                             </td>
                                             <td class="p-price first-row"><a href="{{ route('ViewOrderDetail', $order->id) }}">Xem</a></td>
                                             <td class="qua-col first-row">{{ $order->status == 0 ? 'Đang chờ' : ($order->status == 1 ? 'Đang giao' : 'Hoàn thành') }}</td>
-                                            <td class="close-td first-row">{{ number_format($order->subtotal,3)  }}</td>
+                                            <td class="close-td first-row">{{ number_format($order->subtotal)  }}</td>
                                             <td class="close-td first-row"><i onclick=" confirm('Bạn có chắc muốn hủy đơn hàng?') === true ? window.location='{{ route('returnOrder',$order->id ) }}' : '' " class="ti-close"></i></td>
                                         </tr>                              
                                     @endforeach

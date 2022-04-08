@@ -42,9 +42,9 @@
                                             <td class="cart-title first-row">
                                                 <h5>{{$item->product->name }}</h5>
                                             </td>
-                                            <td class="p-price first-row">{{ $item->amount }}K</td>
+                                            <td class="p-price first-row">{{ number_format($item->amount) }}</td>
                                             <td class="qua-col first-row">{{ $item->qty }}</td>
-                                            <td class="total-price first-row">{{$item->total}}K</td>
+                                            <td class="total-price first-row">{{ number_format($item->total) }}</td>
                                         </tr>                              
                                     @endforeach
                                 </tbody>

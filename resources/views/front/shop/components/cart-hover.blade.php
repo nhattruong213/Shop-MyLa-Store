@@ -7,7 +7,7 @@
                 <td class="si-pic"><img src="front/img/products/{{$item['productInfo']->productImages[0]->path}}" width="50px" alt=""></td>
                 <td class="si-text">
                     <div class="product-selected">
-                        <p>{{$item['productInfo']->discount != null ? $item['productInfo']->discount : $item['productInfo']->price }}k × {{$item['quanty']}}</p>
+                        <p>{{$item['productInfo']->discount != null ? number_format($item['productInfo']->discount) : number_format($item['productInfo']->price) }} × {{$item['quanty']}}</p>
                         <h6>{{$item['productInfo']->name}}</h6>
                     </div>
                 </td>
@@ -22,7 +22,7 @@
 </div>
 <div class="select-total">
     <span>Tổng thanh toán:</span>
-    <h5>{{Session()->get('Cart')->totalPrice}}K</h5>
+    <h5>{{ number_format(Session()->get('Cart')->totalPrice) }}</h5>
     <input type="hidden" id="total-quanty" value="{{Session()->get('Cart')->totalQuanty}}">
 </div>
 @endif  

@@ -26,6 +26,7 @@
                 <div class="col-lg-6">
                     <h4>Chi tiết hóa đơn</h4>
                     <div class="row">
+                        <input type="hidden" name="user_id" value="{{ Auth::user()->id ?? null }}">
                         <div class="col-lg-6">
                             <label for="first_name">Họ <span>*</span></label>
                             <input type="text" id="first_name" name="first_name" value="{{ Auth::user()->first_name ?? '' }}">
@@ -103,10 +104,10 @@
                             <ul class="order-table">
                                 <li>Sản phẩm <span>Tổng</span></li>
                                 @foreach (Session()->get('Cart')->products as $item)
-                                    <li class="fw-normal">{{$item['productInfo']->name }} × {{ $item['quanty'] }} <span>{{$item['price']}}K</span></li>
+                                    <li class="fw-normal">{{$item['productInfo']->name }} × {{ $item['quanty'] }} <span>{{ number_format($item['price']) }}</span></li>
                                 @endforeach 
-                                <li class="fw-normal">Tổng <span>{{Session()->get('Cart')->totalPrice}}K</span></li>
-                                <li class="total-price">Tổng thanh toán <span>{{Session()->get('Cart')->totalPrice}}K</span></li>
+                                <li class="fw-normal">Tổng <span>{{ number_format(Session()->get('Cart')->totalPrice) }}</span></li>
+                                <li class="total-price">Tổng thanh toán <span>{{ number_format(Session()->get('Cart')->totalPrice) }}</span></li>
                             </ul>
                             <div class="payment-check">
                                     <input type="hidden" name="status" value="0">

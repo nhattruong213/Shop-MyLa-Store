@@ -120,7 +120,7 @@
                                                             <td class="si-pic"><img src="front/img/products/{{$item['productInfo']->productImages[0]->path}}" width="50px" alt=""></td>
                                                             <td class="si-text">
                                                                 <div class="product-selected">
-                                                                    <p>{{$item['productInfo']->discount != null ? $item['productInfo']->discount : $item['productInfo']->price }}k × {{$item['quanty']}}</p>
+                                                                    <p>{{$item['productInfo']->discount != null ? number_format($item['productInfo']->discount) : number_format($item['productInfo']->price) }} × {{$item['quanty']}}</p>
                                                                     <h6>{{$item['productInfo']->name}}</h6>
                                                                 </div>
                                                             </td>
@@ -135,7 +135,7 @@
                                             </div>
                                             <div class="select-total">
                                                 <span>Tổng thanh toán:</span>
-                                                <h5>{{Session()->get('Cart')->totalPrice}}K</h5>
+                                                <h5>{{ number_format(Session()->get('Cart')->totalPrice) }}</h5>
                                             </div>
                                         @endif  
                                     </div>
@@ -166,7 +166,7 @@
                 </div>
                 <nav class="nav-menu mobile-menu">
                     <ul>
-                        <li class="{{ (request()->segment(1)=='') ? 'active': '' }}"><a href="{{ route('homepage') }}">Trang chủ</a></li>
+                        <li class="{{ (request()->segment(1)=='') ? 'active': '' }}"><a href="{{ route('homepage') }}">Trang chủ </a></li>
                         <li class="{{ (request()->segment(1)=='shop') ? 'active': '' }}"><a href="{{ route('shop') }}">Shop</a></li>    
                         <li class="{{ (request()->segment(1)=='blog') ? 'active': '' }}"><a href="{{ route('blog') }}">Blog</a></li>
                         <li class="{{ (request()->segment(1)=='contact') ? 'active': '' }}"><a href="{{route('contact')}}">Liên hệ</a></li>
@@ -331,50 +331,79 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
 
     <script>
+        
         function AddCart(id) {
             $.ajax({
-                url: 'Cart/AddCart/'+id,
-                type: 'GET',
-            }).done(function(response){
+            url: 'Cart/add-cart-ajax/'+id,
+            type:"POST",
+            data:{
+                _token: "<?php echo csrf_token() ?>"
+            },
+            success:function(response){
                 // console.log(response);
-                $('#change-item-cart').empty();
-                $('#change-item-cart').html(response);
-                $('#total-quanty-show').text($('#total-quanty').val());
-                alertify.success('Đã thêm sản phẩm vào giỏ hàng');
+                if(response) {
+                    $('#change-item-cart').empty();
+                    $('#change-item-cart').html(response);
+                    $('#total-quanty-show').text($('#total-quanty').val());
+                    // var message = response.success;
+                    // alertify.success(message);
+                    alertify.success('Thêm sản phẩm thành công');
+                }
+            },
+            error: function(error) {
+                // console.log(error);
+                var errMessage = error.responseJSON.error;
+                alertify.error(errMessage);
+            },
+            // dataType: "json"
             });
+            
         }
 
         function UpdateCart(id) {
             $.ajax({
-                url: 'Cart/UpdateItemCart/'+id+'/'+$("#quanty-item-"+id).val(),
-                type: 'GET',
-            }).done(function(response){
-                // console.log(response);
-                $('#list-cart').empty();
-                $('#list-cart').html(response);
-                
-                alertify.success('Đã cập nhật giỏ hàng');
-                var proQty = $('.pro-qty');
-                proQty.prepend('<span class="dec qtybtn">-</span>');
-                proQty.append('<span class="inc qtybtn">+</span>');
-                proQty.on('click', '.qtybtn', function () {
-                    var $button = $(this);
-                    var oldValue = $button.parent().find('input').val();
-                    if ($button.hasClass('inc')) {
-                        var newVal = parseFloat(oldValue) + 1;
-                    } else {
-                        // Don't allow decrementing below zero
-                        if (oldValue > 0) {
-                            var newVal = parseFloat(oldValue) - 1;
+            url: 'Cart/UpdateItemCart/'+id+'/'+$("#quanty-item-"+id).val(),
+            type:"POST",
+            data:{
+                _token: "<?php echo csrf_token() ?>"
+            },
+            success:function(response){
+                console.log(response);
+                if(response) {
+                    $('#list-cart').empty();
+                    $('#list-cart').html(response);
+                    alertify.success('Đã cập nhật giỏ hàng');
+                        
+                    var proQty = $('.pro-qty');
+                    proQty.prepend('<span class="dec qtybtn">-</span>');
+                    proQty.append('<span class="inc qtybtn">+</span>');
+                    proQty.on('click', '.qtybtn', function () {
+                        var $button = $(this);
+                        var oldValue = $button.parent().find('input').val();
+                        if ($button.hasClass('inc')) {
+                            var newVal = parseFloat(oldValue) + 1;
                         } else {
-                            newVal = 0;
+                            // Don't allow decrementing below zero
+                            if (oldValue > 0) {
+                                var newVal = parseFloat(oldValue) - 1;
+                            } else {
+                                newVal = 0;
+                            }
                         }
-                    }
-                    $button.parent().find('input').val(newVal);
-	        });
+                        $button.parent().find('input').val(newVal);
+                    });
+                }
+            },
+            error: function(error) {
+                console.log(error);
+                var errMessage = error.responseJSON.error;
+                alertify.error(errMessage);
+            },
+            // dataType: "json"
             });
-            
         }
+            
+        
 
         $("#change-item-cart").on("click",".si-close i",function(){
             $.ajax({

@@ -45,19 +45,21 @@
                                             <td class="cart-title first-row">
                                                 <h5>{{$item['productInfo']->name }}</h5>
                                             </td>
-                                            <td class="p-price first-row">{{$item['productInfo']->discount != null ? $item['productInfo']->discount : $item['productInfo']->price }}K</td>
+                                            <td class="p-price first-row">{{$item['productInfo']->discount != null ? number_format($item['productInfo']->discount) : number_format($item['productInfo']->price) }}</td>
                                             <td class="qua-col first-row">
                                                 <div class="quantity">
                                                     <div class="pro-qty">
-                                                        <input id="quanty-item-{{ $item['productInfo']->id }}"  type="number" required min="1" max="10" value="{{$item['quanty']}}">
+                                                        <input id="quanty-item-{{ $item['productInfo']->id }}"  type="text" value="{{$item['quanty']}}">
                                                     </div>
                                                 </div>
                                             </td>
                                             <td class="close-td first-row"><i onclick="UpdateCart({{$item['productInfo']->id}})" class="ti-save"></i></td>
-                                            <td class="total-price first-row">{{$item['price']}}K</td>
+                                            <td class="total-price first-row">{{ number_format($item['price']) }}</td>
                                             <td class="close-td first-row"><i class="ti-close" onclick="DeleteListCart({{$item['productInfo']->id}})"></i></td>
                                         </tr>                              
                                     @endforeach
+
+                                   
                                 
                                 </tbody>
                             </table>
@@ -72,8 +74,8 @@
                             <div class="col-lg-4 offset-lg-4">
                                 <div class="proceed-checkout">
                                     <ul>
-                                        <li class="subtotal">Tổng đơn hàng <span>{{Session()->get('Cart')->totalPrice}}K</span></li>
-                                        <li class="cart-total">Cần thanh toán <span>{{Session()->get('Cart')->totalPrice}}K</span></li>
+                                        <li class="subtotal">Tổng đơn hàng <span>{{ number_format(Session()->get('Cart')->totalPrice) }}</span></li>
+                                        <li class="cart-total">Cần thanh toán <span>{{ number_format(Session()->get('Cart')->totalPrice) }}</span></li>
                                     </ul>
                                     <a href="{{ route('CheckOut') }}" class="proceed-btn">Thực hiện thanh toán</a>
                                 </div>

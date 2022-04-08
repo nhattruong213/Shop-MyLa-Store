@@ -53,9 +53,7 @@
                         <div class="details-tag">
                             <ul>
                                 <li><i class="fa fa-tags"></i></li>
-                                <li>Trường</li>
-                                <li>hà cục</li>
-                                <li>Mỹ hà</li>
+                                <li>{{ $blog->category }}</li>
                             </ul>
                         </div>
                         <div class="blog-share">
@@ -68,7 +66,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="posted-by">
+                    {{-- <div class="posted-by">
                         <div class="pd-pic">
                             <img src="front/img/blog/post-by.png" alt="">
                         </div>
@@ -95,7 +93,7 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>

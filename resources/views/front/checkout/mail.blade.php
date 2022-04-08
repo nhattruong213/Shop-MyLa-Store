@@ -35,7 +35,7 @@
             <div class="row" style="background-color: #00509d; height: 200px; padding: 35px; color: white;">
                 <div class="container-fluid">
                     <h3 class="m-0 p-0 mt-4" style="margin-top: 0; font-size: 28px; font-weight: 500;">
-                        <strong style="font-size: 32px;">Thông báo đơn đặt hàng của bạn</strong>
+                        <strong style="font-size: 32px;">Đơn đặt hàng: {{ $order->id }}</strong>
                         <br>
                         Cảm ơn bạn đã đặt hàng ở Myla'Store
                     </h3>
@@ -116,9 +116,9 @@
                                     </td>
                                     <td style="border-top: 1px solid #dee2e6; padding: 5px 20px 5px 0; text-align: right;">
                                         @if ($orderDetail->product->discount!=null)
-                                            {{ $orderDetail->product->discount * $orderDetail->qty }}K
+                                            {{ number_format($orderDetail->product->discount * $orderDetail->qty) }}
                                         @else
-                                            {{ $orderDetail->product->price * $orderDetail->qty }}K
+                                            {{ number_format($orderDetail->product->price * $orderDetail->qty) }}
                                         @endif  
                                     </td>
                                 </tr>
@@ -143,13 +143,13 @@
                                 <tr>
                                     <td class="">Shipping fee</td>
                                     <td class="pr-3 text-right" style="text-align: right; padding-right: 20px;">
-                                        {{ $feeShip }}K
+                                        {{ number_format($feeShip) }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="">Tổng thanh toán</td>
                                     <td class="pr-3 text-right" style="text-align: right; padding-right: 20px;">
-                                        {{ $subtotal + $feeShip }}K
+                                        {{ number_format($subtotal + $feeShip) }}
                                     </td>
                                 </tr>
                             </table>
@@ -174,7 +174,7 @@
 
                         <p>Bạn có thể tham khảo trang Trung tâm trợ giúp hoặc liên hệ với cửa hàng bằng cách để lại tin nhắn tại
                             Trang liên hệ hoặc gửi thư tại đây. Hotline 0397320011 (8h00 - 9h00 cả thứ 7 và chủ nhật).</p>
-
+                        <p><a href="http://127.0.0.1:8000/CheckOrder">Link check đơn hàng</a></p>
                         <b>MylaStore cảm ơn bạn.</b>
                     </div>
                 </div>

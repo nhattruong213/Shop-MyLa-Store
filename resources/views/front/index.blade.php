@@ -95,6 +95,12 @@
 
                         @foreach ($womenProducts as $womenProduct)                           
                         <div class="product-item">
+                            {{-- @if (isset(Session('Cart')->products[$product->id]['quanty']))
+                                <input type="hidden" id="quanty-sl-{{ $product->id }}" value="{{ ($product->qty) - (Session('Cart')->products[$product->id]['quanty']) }}">
+                            @else
+                                <input type="hidden" id="quanty-sl-{{ $product->id }}" value="{{ $product->qty }}"> 
+                            @endif --}}
+
                             <div class="pi-pic">
                                 <img src="front/img/products/{{$womenProduct->productImages[0]->path}}" alt="">
 
@@ -117,10 +123,10 @@
                                 </a>
                                 <div class="product-price">
                                     @if ($womenProduct->discount !=null)
-                                        {{ $womenProduct->discount }}K
-                                        <span>{{ $womenProduct->price }}K</span>     
+                                        {{  number_format($womenProduct->discount) }}
+                                        <span>{{ number_format($womenProduct->price) }}</span>     
                                     @else
-                                         {{ $womenProduct->price }}K                                                                     
+                                         {{ number_format($womenProduct->price) }}                                                                    
                                     @endif
 
                                 </div>
@@ -189,6 +195,8 @@
                         
                         @foreach ($menProducts as $menProduct)                           
                         <div class="product-item">
+                        
+
                             <div class="pi-pic">
                                 <img src="front/img/products/{{$menProduct->productImages[0]->path}}" alt="">
 
@@ -211,10 +219,10 @@
                                 </a>
                                 <div class="product-price">
                                     @if ($menProduct->discount !=null)
-                                        {{ $menProduct->discount }}K
-                                        <span>{{ $menProduct->price }}K</span>     
+                                        {{ number_format($menProduct->discount) }}
+                                        <span>{{ number_format($menProduct->price) }}</span>     
                                     @else
-                                         {{ $menProduct->price }}K                                                                     
+                                         {{ number_format($menProduct->price) }}                                                                    
                                     @endif
 
                                 </div>
@@ -306,7 +314,7 @@
                                     {{ count($blog->blogComments) }}
                                 </div>
                             </div>
-                            <a href="">
+                            <a href="{{ route('blogDetail', $blog->id) }}">
                                 <h4>{{ $blog->title }}</h4>
                             </a>
                             <p>{{ $blog->subtitle }}</p>

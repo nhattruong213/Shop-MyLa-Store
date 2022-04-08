@@ -15,8 +15,8 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->integer('brand_id')->unsigned();
-            $table->integer('product_category_id')->unsigned();
+            $table->unsignedBigInteger('brand_id');
+            $table->unsignedBigInteger('product_category_id');
             $table->string('name');
             $table->text('description')->nullable();
             $table->text('content')->nullable();
@@ -32,7 +32,6 @@ class CreateProductsTable extends Migration
 
             // $table->foreign('brand_id')->references('id')->on('brands');
             // $table->foreign('product_category_id')->references('id')->on('product_categories');
-
         });
     }
 

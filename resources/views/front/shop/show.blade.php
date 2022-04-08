@@ -65,42 +65,31 @@
                                 <div class="pd-desc">
                                     <p>{{ $product->description }}</p>
                                     @if($product->discount!= null)
-                                         <h4>{{ $product->discount }}K <span>{{ $product->price }}K</span></h4>
+                                         <h4>{{ number_format($product->discount) }} <span>{{ number_format($product->price) }}</span></h4>
                                     @else
-                                        <h4>{{ $product->price }}K</h4>
+                                        <h4>{{ number_format($product->price) }}</h4>
                                     @endif
                                 </div>
-                                {{-- <div class="pd-color">
-                                    <h6>Màu</h6>
-                                    <div class="pd-color-choose">
-                                        @foreach (array_unique(array_column($product->productDetails->toArray(),'color')) as $productColor)
-                                            <div class="cc-item">
-                                                <input type="radio" id="cc-{{$productColor}}">
-                                                <label for="cc-black" class="cc-{{$productColor}}"></label>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <div class="pd-size-choose">                      
-                                    @foreach (array_unique(array_column($product->productDetails->toArray(),'size')) as $productSize)
-                                        <div class="sc-item">
-                                            <input type="radio" id="sm-{{$productSize}}">
-                                            <label for="sm-{{$productSize}}">{{$productSize}}</label>
-                                        </div>
-                                    @endforeach
-                                </div> --}}
+                              
                                 <div class="quantity">
                                     <form action="{{route('AddCart-Many', $product->id)}}" method="POST">
                                         @csrf
                                         <div class="quantity">
                                             <div class="pro-qty">
-                                                <input name ="quanty" type="number" required min="1" max="10" value="1">
+                                                <input name ="quanty" type="text"  value="1">
                                             </div>
                                             {{-- <a href="{{ route('AddCart', $product->id) }}" class="primary-btn pd-cart">Thêm vào giỏ </a> --}}
                                             <button type="submit" class="primary-btn">Thêm vào giỏ hàng</button>
                                         </div>
                                      </form>
+                                    
                                 </div>
+
+                                 {{-- show error message --}}
+                                 @if(Session::has('error'))
+                                 <p class="text-danger">{{ Session::get('error') }}</p>
+                                 @endif
+
                                 <ul class="pd-tags"> 
                                     <li><span>Danh mục</span>: {{ $product->productCategory->name }}</li>
                                     <li><span>Tag</span>:{{ $product->tag }}</li>
@@ -113,6 +102,7 @@
                                         <a href="#"><i class="ti-linkedin"></i></a>
                                     </div>
                                 </div>
+                                
 
                             </div>
                         </div>
@@ -306,6 +296,13 @@
                 @foreach ($relateProducts as $relateProduct)          
                 <div class="col-lg-4 col-sm-6">
                     <div class="product-item">
+                        
+                        {{-- @if (isset(Session('Cart')->products[$product->id]['quanty']))
+                            <input type="hidden" id="quanty-sl-{{ $product->id }}" value="{{ ($product->qty) - (Session('Cart')->products[$product->id]['quanty']) }}">
+                        @else
+                            <input type="hidden" id="quanty-sl-{{ $product->id }}" value="{{ $product->qty }}"> 
+                        @endif --}}
+
                         <div class="pi-pic">
                             <img src="front/img/products/{{$relateProduct->productImages[0]->path}}" alt="">
                             @if($relateProduct->discount != null)
@@ -315,7 +312,7 @@
                                 <i class="icon_heart_alt"></i>
                             </div>
                             <ul>
-                                <li class="w-icon active"><a href="{{ route('AddCart', $relateProduct->id) }}"><i class="icon_bag_alt"></i></a></li>
+                                <li class="w-icon active"><a onclick="AddCart({{$relateProduct->id}})" href="javascript:"><i class="icon_bag_alt"></i></a></li>
                                 <li class="quick-view"><a href="{{route('productDetail',$relateProduct->id)}}">+Xem chi tiết</a></li>
                             </ul>
                         </div>
@@ -326,10 +323,10 @@
                             </a>
                             <div class="product-price">
                                 @if ($relateProduct->discount !=null)
-                                    {{ $relateProduct->discount }}K
-                                    <span>{{ $relateProduct->price }}K</span>     
+                                    {{ number_format($relateProduct->discount) }}
+                                    <span>{{ number_format($relateProduct->price)}}</span>     
                                 @else
-                                    {{ $relateProduct->price }}K                                                                     
+                                    {{ number_format($relateProduct->price) }}                                                                    
                                 @endif
                             </div>
                         </div>

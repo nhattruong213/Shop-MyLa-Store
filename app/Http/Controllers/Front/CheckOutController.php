@@ -9,12 +9,14 @@ use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use Exception;
+use Illuminate\Contracts\Session\Session as SessionSession;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use session;
 
 class CheckOutController extends Controller
 {
+    public $info = [];
     public function index ()
     {
         //lấy dữ liệu danh mục
@@ -24,10 +26,11 @@ class CheckOutController extends Controller
     }
     public function addOrder(CheckOutRequest $request) 
     {
+        // dd($request->except('redirect'));
+        
         if($request->payment_type == "pay_later")  // xử lí thanh toán sau gửi email thông báo 
-        {
-            // thêm đơn hàng
-            // dd($request->all());
+        { 
+              // thêm đơn hàng
             $order = Order::create($request->except('redirect'));
 
             //thêm đơn hàng chi tiết
@@ -41,13 +44,11 @@ class CheckOutController extends Controller
                 ];
                 OrderDetail::create($dataSave);
 
-                // trừ tồn kho
-                $product = Product::findOrFail($item['productInfo']->id);
-                $product->qty -= $item['quanty'];
-                $product->save();
-
+              // trừ tồn kho
+              $product = Product::findOrFail($item['productInfo']->id);
+              $product->qty -= $item['quanty']; 
+              $product->save();
             }
-                 
             // gửi mail
             $subtotal = Session()->get('Cart')->totalPrice;
             $this->sendEmail($order, $subtotal ) ;
@@ -60,20 +61,35 @@ class CheckOutController extends Controller
             
         }
         if($request->payment_type == "online_payment") {
-            $this->Payment_online();
+
+            // lưu thông tin khách mua hàng
+            $information = $request->except('redirect');
+
+            session(['infomation' => $information]);
+
+            // $this->info = $request->except('redirect');
+
+            // dd($this->info);
+
+            //
+            $subtotal = Session()->get('Cart')->totalPrice;
+
+            $this->Payment_online( $subtotal);
         }
                 
     }
-    public function Payment_online(){
-        $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-            $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
+    public function Payment_online( $subtotal){
+            $code = rand(00,99999);
+            $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+            $vnp_Returnurl = "http://127.0.0.1:8000/shop";
             $vnp_TmnCode = "U6WV27XE";//Mã website tại VNPAY 
             $vnp_HashSecret = "TGWZCTVCITVOLNFVQUNPYEDCKPUEBKCJ"; //Chuỗi bí mật
+            $data = 'abc' ;
 
-            $vnp_TxnRef = 123457; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
-            $vnp_OrderInfo = 'thanh toán';
+            $vnp_TxnRef = $code; 
+            $vnp_OrderInfo = 'thanh toán hóa đơn MylaStore';
             $vnp_OrderType = 'bill';
-            $vnp_Amount = 20000 * 100;
+            $vnp_Amount = $subtotal * 100;
             $vnp_Locale = 'vn';
             $vnp_BankCode ='NCB';
             $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
@@ -89,10 +105,10 @@ class CheckOutController extends Controller
                 "vnp_Locale" => $vnp_Locale,
                 "vnp_OrderInfo" => $vnp_OrderInfo,
                 "vnp_OrderType" => $vnp_OrderType,
-                "vnp_ReturnUrl" => $vnp_Returnurl,
+                "vnp_ReturnUrl" => route('vnpayReturn', $data),
                 "vnp_TxnRef" => $vnp_TxnRef,
             );
-
+        
             if (isset($vnp_BankCode) && $vnp_BankCode != "") {
                 $inputData['vnp_BankCode'] = $vnp_BankCode;
             }
@@ -150,5 +166,8 @@ class CheckOutController extends Controller
             $message->to($email_to, $email_to);
             $message->subject('Thông báo đơn đặt hàng từ MyLaStore ');
         });
+    }
+    public function vnpayReturn(Request $request){
+        dd($request->all());
     }
 }

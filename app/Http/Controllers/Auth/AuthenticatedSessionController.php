@@ -99,11 +99,11 @@ class AuthenticatedSessionController extends Controller
                 ->with('error', 'Lưu hồ sơ thất bại.');
         }
     }
-    public function ViewHistoryOrder($email){
+    public function ViewHistoryOrder($id){
         $data = [];
         $categories = ProductCategory::where('status','1')->get();
         $data['categories'] = $categories;
-        $orders = Order::where('email',$email)->orderBy('id','desc')->get();
+        $orders = Order::where('user_id',$id)->orderBy('id','desc')->get();
         $data['orders'] = $orders;
         return view('front.profile.order', $data);
     }

@@ -70,12 +70,13 @@
                                         </a>
                                         <div class="product-price">
                                             @if ($product->discount!=null)
-                                                {{ $product->discount }}K
-                                                <span>{{ $product->price }}K</span>
+                                                {{ number_format($product->discount) }}
+                                                <span>{{ number_format($product->price) }}</span>
                                             @else
-                                                {{$product->price }}K
+                                                {{number_format($product->price) }}
                                             @endif
                                         </div>
+                                      
                                     </div>
                                 </div>
                             </div>

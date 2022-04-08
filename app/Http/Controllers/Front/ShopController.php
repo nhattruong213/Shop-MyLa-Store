@@ -156,6 +156,8 @@ class ShopController extends Controller
     public function filter_brand ($products, Request $request) {
         $brands = $request->brand ?? [];
         $brand_ids = array_keys($brands);
+
+        // dd($brands);
         
         $products = $brand_ids != Null ? $products->whereIn('brand_id', $brand_ids) : $products;
         return $products;
