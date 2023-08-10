@@ -1,0 +1,56 @@
+version: '3'
+services:
+  #PHP Service
+  myla_system_app:
+    build:
+      context: .
+      dockerfile: app.docker
+    container_name: myla_system_app
+    volumes:
+      - ../:/var/www
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./php/policy.xml:/etc/ImageMagick-6/policy.xml
+      - ./php/Module1.xba:/usr/lib/libreoffice/presets/basic/Standard/Module1.xba
+    networks:
+      - myla-system-network
+    links:
+      - myla_system_mysql:db
+
+  #Nginx Service
+  myla_system_web:
+    image: nginx:1.21.1
+    container_name: myla_system_web
+    ports:
+      - 8089:89
+    volumes:
+      - ../:/var/www
+      - ./nginx/vhost.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - myla-system-network
+    depends_on:
+      - myla_system_app
+
+  # MySQL Service
+  myla_system_mysql:
+    image: mysql:8
+    container_name: myla_system_mysql
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - 33069:3306
+    environment:
+      MYSQL_DATABASE: myla_system
+      MYSQL_ROOT_PASSWORD: password
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    networks:
+      - myla-system-network
+    volumes:
+      - myla-system-mysql:/var/lib/mysql
+      - ./my.cnf:/etc/mysql/conf.d/my.cnf
+
+#Docker Networks
+networks:
+  myla-system-network:
+    driver: bridge
+volumes:
+  myla-system-mysql: {}
